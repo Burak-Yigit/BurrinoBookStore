@@ -7,11 +7,11 @@ function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": { url:'/admin/company/getall'},
         "columns": [
-            { data: 'name', "width": "15%" },
-            { data: 'streetAdress', "width": "15%" },
-            { data: 'city', "width": "15%" },
-            { data: 'state', "width": "15%" },
-            { data: 'phoneNumber', "width": "15%" },
+            { data: 'name', "width": "20%" },
+            { data: 'streetAdress', "width": "20%" },
+            { data: 'city', "width": "20%" },
+            { data: 'state', "width": "20%" },
+            { data: 'phoneNumber', "width": "20%" },
             {
                 data: 'id',
                 "render": function (data) {

@@ -2,20 +2,24 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Permissions;
 
 namespace BulkyBook.DataAccess.Data
 {
-    public class ApplicationDbContext:IdentityDbContext<IdentityUser>
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) 
-        { 
-            
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+
         }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }    
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Company> Companies { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -24,6 +28,12 @@ namespace BulkyBook.DataAccess.Data
                 new Category { Id = 2, Name = "Sci-Fi", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
                 );
+
+            modelBuilder.Entity<Company>().HasData(
+    new Company { Id = 1, Name = "Burrino Tech", StreetAdress = "123 Burrino St", City = "Burrino City", PostalCode = "34232", State = "Marmara", PhoneNumber = "453254322" },
+ new Company { Id = 2, Name = "Vivid Books", StreetAdress = "123 Vivid St", City = "Vivid City", PostalCode = "34232", State = "IL", PhoneNumber = "453254322" },
+ new Company { Id = 3, Name = "Readers Club", StreetAdress = "999 Main St", City = "Lala Land", PostalCode = "34232", State = "NY", PhoneNumber = "453254322" }
+    );
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
@@ -37,7 +47,7 @@ namespace BulkyBook.DataAccess.Data
                     Price50 = 85,
                     Price100 = 80,
                     CategoryId = 1,
-                    ImageUrl=""
+                    ImageUrl = ""
                 },
                 new Product
                 {
