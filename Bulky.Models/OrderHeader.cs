@@ -26,9 +26,9 @@ namespace BulkyBook.Models
         public string? Carrier {  get; set; }
         public DateTime PaymentDate { get; set; }
         public DateOnly PaymentDueDate { get; set; }
+        public string? SessionId { get; set; }
         public string? PaymentIntentId { get; set; }
-        [Required]
-        public string Name { get; set; }
+    
         [Required]
         public string StreetAdress { get; set; }
         [Required]
@@ -39,5 +39,7 @@ namespace BulkyBook.Models
         public string PostalCode { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
+        [Required]
+        public string Name { get; set; }
     }
 }
