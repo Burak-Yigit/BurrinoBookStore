@@ -48,19 +48,23 @@ namespace Burrino.DataAccess.DbInitializer
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Company)).GetAwaiter().GetResult();
+                //if roles are not created, then we will create admin user as well
+                _userManager.CreateAsync(new ApplicationUser
+                {
+                    UserName = "admin@burrino.com",
+                    Email = "admin@burrion.com",
+                    Name = "Burak Yigit",
+                    PhoneNumber = "00000000",
+                    StreetAdress = "Istanbul/Bahcelievler",
+                    State = "IL",
+                    PostalCode = "23422",
+                    City = "Istanbul"
+                }, "11Aa!!").GetAwaiter().GetResult();
+                ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Email == "admin@burrino.com");
+                _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
             }
-            //if roles are not created, then we will create admin user as well
-            _userManager.CreateAsync(new ApplicationUser
-            {
-                UserName = "admin@burrino.com",
-                Email = "admin@burrion.com",
-                Name = "Burak Yigit",
-                PhoneNumber = "00000000",
-                StreetAdress = "Istanbul/Bahcelievler",
-                State = "IL",
-                PostalCode = "23422",
-                City = "Istanbul"
-            }, "11Aa!!").GetAwaiter().GetResult();
+         
+            return;
         }
     }
 }
