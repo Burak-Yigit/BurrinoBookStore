@@ -52,15 +52,17 @@ namespace Burrino.DataAccess.DbInitializer
                 _userManager.CreateAsync(new ApplicationUser
                 {
                     UserName = "admin@burrino.com",
-                    Email = "admin@burrion.com",
+                    Email = "admin@burrino.com",
                     Name = "Burak Yigit",
                     PhoneNumber = "00000000",
                     StreetAdress = "Istanbul/Bahcelievler",
                     State = "IL",
                     PostalCode = "23422",
                     City = "Istanbul"
-                }, "11Aa!!").GetAwaiter().GetResult();
+                }, "Admin123*").GetAwaiter().GetResult();
+
                 ApplicationUser user = _db.ApplicationUsers.FirstOrDefault(u => u.Email == "admin@burrino.com");
+
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
             }
          
