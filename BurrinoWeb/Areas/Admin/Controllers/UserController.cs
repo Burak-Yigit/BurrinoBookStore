@@ -48,7 +48,7 @@ namespace BurrinoWeb.Areas.Admin.Controllers
             }
             return Json(new { data = objUserList });
         }
-        [HttpDelete]
+        [HttpPost]
         public IActionResult LockUnlock([FromBody]string id)
         {
            var objFromDb = _db.ApplicationUsers.FirstOrDefault(u=>u.Id == id);
