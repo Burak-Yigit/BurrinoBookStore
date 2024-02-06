@@ -59,20 +59,20 @@ namespace BurrinoWeb.Areas.Admin.Controllers
                 {
                     string fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
                     string productPath = Path.Combine(wwwRothPath, @"images\product");
-                    if(!string.IsNullOrEmpty(productVM.Product.ImageUrl)) 
-                    {
-                        //delete the old image
-                        var oldImagePath = Path.Combine(wwwRothPath, productVM.Product.ImageUrl.TrimStart('\\'));
-                        if(System.IO.File.Exists(oldImagePath))
-                        {
-                            System.IO.File.Delete(oldImagePath);
-                        }
-                    }
-                    using ( var fileStream = new FileStream(Path.Combine(productPath, fileName),FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-                    productVM.Product.ImageUrl = @"\images\product\" + fileName;
+                    //if(!string.IsNullOrEmpty(productVM.Product.ImageUrl)) 
+                    //{
+                    //    //delete the old image
+                    //    var oldImagePath = Path.Combine(wwwRothPath, productVM.Product.ImageUrl.TrimStart('\\'));
+                    //    if(System.IO.File.Exists(oldImagePath))
+                    //    {
+                    //        System.IO.File.Delete(oldImagePath);
+                    //    }
+                    //}
+                    //using ( var fileStream = new FileStream(Path.Combine(productPath, fileName),FileMode.Create))
+                    //{
+                    //    file.CopyTo(fileStream);
+                    //}
+                    //productVM.Product.ImageUrl = @"\images\product\" + fileName;
                 }
                 if(productVM.Product.Id==0)
                 {
@@ -115,11 +115,11 @@ namespace BurrinoWeb.Areas.Admin.Controllers
             {
                 return Json(new {success = false, message= "Error while deleting"});
             }
-            var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
-            if (System.IO.File.Exists(oldImagePath))
-            {
-                System.IO.File.Delete(oldImagePath);
-            }
+            //var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, productToBeDeleted.ImageUrl.TrimStart('\\'));
+            //if (System.IO.File.Exists(oldImagePath))
+            //{
+            //    System.IO.File.Delete(oldImagePath);
+            //}
             _unitOfWork.Product.Remove(productToBeDeleted);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Delete Successful" });
