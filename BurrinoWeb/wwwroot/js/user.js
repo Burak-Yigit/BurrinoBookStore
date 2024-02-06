@@ -14,16 +14,37 @@ function loadDataTable() {
             { "data": "email", "width": "15%" },
             { "data": "phoneNumber", "width": "15%" },
             { "data": "company.name", "width": "15%" },
-            { "data": "", "width": "15%" },
+            { "data": "role", "width": "15%" },
             {
-                "data": "id",
+                data: { id: "id",lockoutEnd:"lockoutEnd" },
                 "render": function (data) {
-                    return `
-                        <div class="w-75 btn-group" role="group">
-                        <a href="/Admin/Company/Upsert?id=${data}"
-                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
-					</div>
+                    var today = new Date().getTime();
+                    var lockout = new Date(data.lockoutEnd).getTime();
+                    if (lockout > today) {
+                        return `
+                       <div class="text-center">
+    <a class="btn btn-success text-white" style="cursor:pointer; width:100px;">
+        <i class="bi bi-unlock-fill"></i> Unlock
+    </a>
+    <a class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
+        <i class="bi bi-pencil-square"></i> Permission
+    </a>
+</div>
                         `
+                    }
+                    else {
+                        return `
+                        <div class="text-center">
+    <a class="btn btn-danger text-white" style="cursor:pointer; width:100px;">
+        <i class="bi bi-unlock-fill"></i> Lock
+    </a>
+    <a class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
+        <i class="bi bi-pencil-square"></i> Permission
+    </a>
+</div>
+                        `
+                    }
+                    
                 },
                 "width": "15%"
             }
