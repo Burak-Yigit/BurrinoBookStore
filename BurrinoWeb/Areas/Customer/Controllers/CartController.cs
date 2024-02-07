@@ -35,11 +35,16 @@ namespace BurrinoWeb.Areas.Customer.Controllers
 
             };
             IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.GetAll();
+            if(ShoppingCartVM.ShoppingCartList.Count() == 0)
+            {
+                    ViewBag.hideButton = "hide";
+            }
             foreach (var cart in ShoppingCartVM.ShoppingCartList)
             {
                 cart.Product.ProductImages = productImages.Where(u=>u.ProductId==cart.ProductId).ToList();
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 ShoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+               
             }
             return View(ShoppingCartVM);
         }
@@ -121,7 +126,7 @@ namespace BurrinoWeb.Areas.Customer.Controllers
             {
                 //it is a regular customer account and we need to capture payment
                 //stripe logic
-                var domain = "https://localhost:7070/";
+                var domain = Request.Scheme+"://"+Request.Host.Value +"/";
                 var options = new Stripe.Checkout.SessionCreateOptions
                 {
                     

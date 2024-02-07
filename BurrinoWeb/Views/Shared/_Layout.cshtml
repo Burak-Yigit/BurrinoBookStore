@@ -27,10 +27,13 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @if (User.IsInRole(SD.Role_Admin)||User.IsInRole(SD.Role_Company)||User.IsInRole(SD.Role_Customer)||User.IsInRole(SD.Role_Employee))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a>
+                            </li>
+                        }
                         
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a>
-                        </li>
                         @if (User.IsInRole(SD.Role_Admin))
                         {
                             <li class="nav-item dropdown">
@@ -59,13 +62,21 @@
                             </li>
                             
                         }
-                       
+                        @if (User.IsInRole(SD.Role_Admin)||User.IsInRole(SD.Role_Company)||User.IsInRole(SD.Role_Customer)||User.IsInRole(SD.Role_Employee))
+                        {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="Customer" asp-controller="Cart" asp-action="Index">
                                     @await Component.InvokeAsync("ShoppingCart")
                                 </a>
                             </li>
-                      
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a style="color:white;">Welcome to Burrino Book Store - Please Register to Use Our Website</a>
+                            </li>
+                        }
+
 
                         
 

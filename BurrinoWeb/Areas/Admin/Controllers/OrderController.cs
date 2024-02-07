@@ -125,7 +125,7 @@ namespace BurrinoWeb.Areas.Admin.Controllers
                 .Get(u => u.Id == OrderVM.OrderHeader.Id, includeProperties: "ApplicationUser");
             OrderVM.OrderDetail = _unitOfWork.OrderDetail.GetAll(u=>u.OrderHeaderId == OrderVM.OrderHeader.Id,includeProperties: "Product");
             //stripe logic
-            var domain = "https://localhost:7070/";
+            var domain = Request.Scheme + "://" + Request.Host.Value + "/";
             var options = new Stripe.Checkout.SessionCreateOptions
             {
 
